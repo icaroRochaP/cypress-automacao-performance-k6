@@ -1,0 +1,19 @@
+name: Pipeline gitflow - Main
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  Pipeline:
+    uses: b3sa/b3-reusable-workflows/.github/workflows/workflow-java-azr-aks-main.yml@main
+    secrets: inherit
+    with:
+      app-fullname: lst-sincadcloud-automacao-performace
+      version-java: 21
+      snapshot-environment: qaa
+      release-environment: uat
+      database: sqlserver
+      is-api: true
+      deploy-gateway: false

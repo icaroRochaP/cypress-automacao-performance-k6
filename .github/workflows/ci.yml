@@ -1,0 +1,18 @@
+name: Pipeline gitflow - CI
+
+on:
+  push:
+    branches:
+    - 'feature**'
+
+jobs:
+  Pipeline:
+    uses: b3sa/b3-reusable-workflows/.github/workflows/workflow-java-azr-aks-ci.yml@main
+    secrets: inherit
+    with:
+      app-fullname: lst-sincadcloud-automacao-performace
+      version-java: 21
+      
+      database: sqlserver
+      is-api: false
+      

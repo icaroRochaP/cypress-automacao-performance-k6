@@ -1,0 +1,65 @@
+name: Pipeline gitflow - Deploy
+
+run-name: Deploy para ${{ inputs.environment }} - requisitado por ${{ github.actor }} para a versao ${{ inputs.version }}
+
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'version'
+        required: true
+        type: string
+      environment:
+        description: 'Deploy Environment'
+        required: true
+        type: choice
+        options:
+        - prd
+        - cer
+        - uat
+      version-suffix:
+        description: 'Tipo de deploy'
+        required: true
+        type: choice
+        default: release-candidate
+        options:
+        - release-candidate
+        - hotfix
+      description:
+        required: false
+        description: 'Descrição da mudança'
+        type: string
+      change_source:
+        required: true
+        description: 'Qual é o tipo de lastro que será utilizado para registrar a mudança?'
+        type: choice
+        options:
+        - Request
+        - Incident
+        - Problem
+        - DP
+        - DNP
+        - Jira
+      change_source_number:
+        required: false
+        description: 'Qual é o ID respectivo ao tipo do change_source informado?'
+        type: string
+
+jobs:
+  Pipeline:
+    uses: b3sa/b3-reusable-workflows/.github/workflows/workflow-java-azr-aks-delivery.yml@main
+    secrets: inherit
+    with:
+      app-fullname: lst-sincadcloud-automacao-performace
+      system: sincad-cloud
+      database: sqlserver
+      deploy-gateway: false
+      
+      version: ${{ inputs.version }}
+      version-suffix: ${{ inputs.version-suffix }}
+      environment: ${{ inputs.environment }}
+      change_source: ${{ inputs.change_source }}
+      change_source_number: ${{ inputs.change_source_number }}
+      description: ${{ inputs.description }}
+      

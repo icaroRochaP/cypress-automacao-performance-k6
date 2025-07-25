@@ -1,0 +1,16 @@
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    registries:
+      - github
+
+registries:
+  github:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: $${{ secrets.GH_TOKEN }}

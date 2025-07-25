@@ -1,0 +1,21 @@
+name: Pipeline gitflow - Hotfix
+
+on:
+  push:
+    branches:
+    - 'hotfix**'
+
+jobs:
+  Pipeline:
+    uses: b3sa/b3-reusable-workflows/.github/workflows/workflow-java-azr-aks-hotfix.yml@main
+    secrets: inherit
+    with:
+      app-fullname: lst-sincadcloud-automacao-performace
+      fortify-app-version: '1.0.0'
+      environment: uat
+      version-java: 21
+      database: sqlserver
+      deploy-gateway: false
+      
+      is-api: false
+      

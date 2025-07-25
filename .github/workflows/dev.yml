@@ -1,0 +1,22 @@
+name: Pipeline gitflow - Dev
+
+on:
+  push:
+    branches:
+    - develop
+    - dev
+
+jobs:
+  Pipeline:
+    uses: b3sa/b3-reusable-workflows/.github/workflows/workflow-java-azr-aks-dev.yml@main
+    secrets: inherit
+    with:
+      app-fullname: lst-sincadcloud-automacao-performace
+      environment: dev
+      version-java: 21
+      database: sqlserver
+      deploy-gateway: false
+      
+      is-api: false
+      
+
